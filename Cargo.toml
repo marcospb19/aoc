@@ -1,0 +1,17 @@
+[package]
+name = "rust"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+input_reader = { path = "./crates/input_reader" }
+either = "*"
+itertools = "*"
+regex = "*"
+timed = "*"
+
+[profile.release]
+opt-level = 2
+
+[workspace]
+members = [".", "crates/input_reader"]

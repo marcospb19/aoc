@@ -1,0 +1,42 @@
+// imports
+#![feature(iter_array_chunks)]
+use std::{array, collections::*};
+use either::Either;
+use regex::Regex;
+
+// regex captures
+let input = include_str!("../input.txt");
+let mut lines = vec![];
+for line in input.lines() {
+    let pattern = Regex::new(r"#(\d+) @ (\d+),(\d+): (\d+)x(\d+)").unwrap();
+    let (_, [claim, sx, sy, x, y]) = pattern.captures(&line).unwrap().extract();
+    let [claim, sx, sy, x, y] = [claim, sx, sy, x, y].map(|x| x.parse::<usize>().unwrap());
+    lines.push([claim, sx, sy, x, y]);
+}
+
+// unpack
+fn unpack<const N: usize>(iter: impl IntoIterator<Item = usize>) -> [usize; N] {
+    let mut iter = iter.into_iter();
+    std::array::from_fn(|_| iter.next().unwrap())
+}
+
+// read integers from input
+fn read_one_integer(text: &str) -> usize {
+    let iter = Regex::new(r"\d+").unwrap();
+    let mut iter = iter
+        .find_iter(text)
+        .map(|x| x.as_str().parse::<usize>().unwrap());
+    iter.next().unwrap()
+}
+fn read_all_integers(text: &str) -> Vec<usize> {
+    let iter = Regex::new(r"\d+").unwrap();
+    let iter = iter.find_iter(text);
+    iter.map(|x| x.as_str().parse::<usize>().unwrap()).collect()
+}
+fn read_n_integers<const N: usize>(text: &str) -> [usize; N] {
+    let pattern = Regex::new(r"\d+").unwrap();
+    let mut iter = pattern
+        .find_iter(text)
+        .map(|x| x.as_str().parse::<usize>().unwrap());
+    array::from_fn(|_| iter.next().unwrap())
+}

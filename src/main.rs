@@ -1,0 +1,2 @@
+#[timed::timed]
+fn main() {}

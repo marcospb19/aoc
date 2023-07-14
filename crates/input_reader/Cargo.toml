@@ -1,0 +1,10 @@
+[package]
+name = "input_reader"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+tupleops = { version = "0.1.1", default-features = false, features = [
+    "concat",
+    "8",
+] }
