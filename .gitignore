@@ -1,4 +1,3 @@
 /target
 Cargo.lock
-input.txt
 !solutions/*/input.txt
